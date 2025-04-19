@@ -1,0 +1,79 @@
+<!-- items/templates/items/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Items List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        small {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Items List</h1>
+    
+    <h2>Add New Item</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Item</button>
+    </form>
+    
+    <h2>Existing Items</h2>
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>{{ item.name }}</strong>
+                <p>{{ item.description }}</p>
+                <small>{{ item.created_at }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
