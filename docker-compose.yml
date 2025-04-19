@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  django:
+    build: ./django_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django_app:/app
+    depends_on:
+      - db
+    environment:
+      - DJANGO_ENV=development
+      - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydb
+
+  flask:
+    build: ./flask_app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask_app:/app
+    environment:
+      - FLASK_ENV=development
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=mydb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
